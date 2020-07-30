@@ -1,6 +1,7 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import FormField from '../../../components/FormField';
 import PageDefault from '../../../components/PageDefault';
+import Button from '../../../components/Button';
 import { Link } from 'react-router-dom';
 
 function CadasTroCategoria() {
@@ -34,6 +35,29 @@ function CadasTroCategoria() {
         );
     }
 
+
+    useEffect(  () => {
+
+        console.log("Teste"); 
+
+        const URL_TOP = 'http://localhost:8080/categorias';
+
+        fetch(URL_TOP).then( async (respostaDoServidor) => {
+
+            const resposta = await respostaDoServidor.json();
+
+            console.log(resposta);
+
+            setCategorias([ 
+                
+                ...resposta,
+            
+            ]);
+
+        });
+        
+    }, [] ); 
+
     return  (
 
         <PageDefault>
@@ -60,7 +84,7 @@ function CadasTroCategoria() {
 
                 <FormField
                     label = "Descrição"
-                    type = "text"
+                    type = "textarea"
                     name = "descricao"
                     value = {values.descricao}
                     onChange = {handleChange}
@@ -76,19 +100,27 @@ function CadasTroCategoria() {
 
                 />
 
-                <button>
+                <Button>
 
                     Cadastrar
 
-                </button>
+                </Button>
 
             </form>
 
+            {categorias.length === 0 && (
+
+                <div>
+                    Loading...
+                </div>
+
+            )}
+
             <ul>
-                  {categorias.map( (categoria, indice) => {
+                  {categorias.map( (categoria) => {
                         return (
-                            <li key = {`${categoria}${indice}`}>
-                                {categoria.nome}        
+                            <li key = {`${categoria.titulo}`}>
+                                {categoria.titulo}        
                             </li>
                         )
                     })

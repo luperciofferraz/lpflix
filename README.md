@@ -1,3 +1,5 @@
+# LPFLIX
+
 O Projeto LPFLIX é um sistema semelhante ao conhecido NetFlix. Foi desenvolvido durante um evento da Alura chamado Imersão React.
 
 O sistema foi desenvolvido em React e utilizou:
